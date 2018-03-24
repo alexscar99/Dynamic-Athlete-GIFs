@@ -43,12 +43,12 @@ $(document).ready(function() {
     $('#athlete-buttons').append(athleteButton);
   }
 
-  // Step Two: Add on click event for each button
-
   $('.athlete-button').click(function() {
     $('#athletes').empty();
 
+    // store name of athlete
     var athlete = $(this).attr('data-athlete');
+
     var queryURL =
       'https://api.giphy.com/v1/gifs/search?q=' +
       athlete +
@@ -62,8 +62,9 @@ $(document).ready(function() {
 
       var imgURL = response.data.image_original_url;
 
+      // iterate through 10 times (limit amt) and create new div that has img for gif and paragraph for rating
       for (var i = 0; i < results.length; i++) {
-        var gifDiv = $("<div class='item'>");
+        var gifDiv = $("<div class='item col-md-6'>");
 
         var rating = results[i].rating;
 
@@ -84,6 +85,8 @@ $(document).ready(function() {
 
 // Step Three: On click empty gifs
 
-// Step Four: On click populate 10 new gifs
+// Step Four: On click populate 10 new gifs in still state
 
-// Step Five: Have form add new button
+// Step Five: On click animates gifs
+
+// Step Six: Have form add new button

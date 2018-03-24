@@ -1,0 +1,18 @@
+.container-fluid {
+  padding: 40px;
+}
+
+.item {
+  margin: 40px 0;
+}
+
+.item img {
+  width: 425px;
+  height: 285px;
+}
+
+.item p {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: -50px;
+}
