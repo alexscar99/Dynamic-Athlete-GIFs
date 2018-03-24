@@ -7,26 +7,21 @@ $(document).ready(function() {
     'Stephen Curry',
     'Clayton Kershaw',
     'Kristaps Porzingis',
-    'J.J. Watt',
     'Russel Westbrook',
     'Mike Trout',
     'Anthony Davis',
     'Aaron Judge',
     'Kevin Durant',
     'Odell Beckham',
+    'Carmelo Anthony',
     'Tom Brady',
+    'Kyrie Irving',
     'Antonio Brown',
     'Jose Altuve',
     'Sidney Crosby',
-    'Khalil Mack',
-    'Alexander Ovechkin',
-    'Serena Williams',
-    'Justin Verlander',
-    'Roger Federer',
-    'Kyrie Irving',
     'Eli Manning',
-    'Carmelo Anthony',
-    "Le'Veon Bell"
+    'Alexander Ovechkin',
+    'Justin Verlander'
   ];
 
   for (var i = 0; i < athletes.length; i++) {
@@ -34,7 +29,7 @@ $(document).ready(function() {
 
     athleteButton.text(athletes[i]);
 
-    athleteButton.attr('class', 'athlete-button');
+    athleteButton.attr('class', 'athlete-button btn btn-success');
 
     athleteButton.attr('data-athlete', athletes[i]);
 
