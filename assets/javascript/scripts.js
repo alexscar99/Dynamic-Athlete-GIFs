@@ -27,7 +27,7 @@ $(document).ready(function() {
   ];
 
   $('#athlete-form').submit(function(event) {
-    event.preventDefault();
+    //event.preventDefault();
     $.ajax({
       url: $(this).attr('action'),
       type: 'GET',
@@ -37,12 +37,6 @@ $(document).ready(function() {
       }
     });
   });
-
-  // $('#add-athlete').click(function() {
-  //   var newAthlete = $(this);
-
-  //   athletes.push(newAthlete);
-  // });
 
   for (var i = 0; i < athletes.length; i++) {
     var athleteButton = $('<button>');
@@ -57,46 +51,6 @@ $(document).ready(function() {
 
     $('#athlete-buttons').append(athleteButton);
   }
-
-  //createButtons();
-
-  //createButtons();
-
-  // athletes.forEach(function(element) {
-  //   athleteButton = $('<button>');
-
-  //   athleteButton.text(element);
-
-  //   athleteButton.attr('class', 'athlete-button btn btn-success');
-
-  //   athleteButton.attr('data-athlete', element);
-
-  //   athleteButton.attr('data-state', 'still');
-
-  //   $('#athlete-buttons').append(athleteButton);
-  // });
-
-  // }
-
-  // createButtons();
-
-  // var newAthlete = $('#athlete-input');
-
-  // $('#add-athlete').click(function() {
-  //   athletes.push(newAthlete);
-  // console.log(athletes);
-  //createButtons();
-  // });
-  // var addNewButton = function() {
-  //   $('#athlete-buttons').empty();
-  //   athletes.push(newAthlete);
-  //   createButtons();
-  // };
-
-  // $('#add-athlete').click(function() {
-  //   athletes.push(newAthlete);
-
-  // });
 
   $('.athlete-button').click(function() {
     $('#athletes').empty();
