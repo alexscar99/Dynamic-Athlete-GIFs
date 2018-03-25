@@ -1,8 +1,4 @@
 $(document).ready(function() {
-  // Step One: Create 20 default buttons from array
-  // function createButtons() {
-  // $('#athlete-buttons').empty();
-
   var athletes = [
     'LeBron James',
     'Aaron Rodgers',
@@ -26,76 +22,79 @@ $(document).ready(function() {
     'Justin Verlander'
   ];
 
+  var makeButtons = function() {
+    $('#athlete-buttons').empty();
+
+    // iterate through athletes array and create a button for each with text, classes, and attributes then append to #athlete-buttons
+    for (var i = 0; i < athletes.length; i++) {
+      var athleteButton = $('<button>');
+
+      athleteButton.text(athletes[i]);
+
+      athleteButton.addClass('athlete-button btn btn-success');
+
+      athleteButton.attr('data-athlete', athletes[i]);
+
+      athleteButton.attr('data-state', 'still');
+
+      $('#athlete-buttons').append(athleteButton);
+    }
+  };
+
+  makeButtons();
+
+  // grab input, push it into athletes array, and run function to populate buttons
+  var addButton = function() {
+    var newAthlete = $('#athlete-input').val();
+    athletes.push(newAthlete);
+    makeButtons();
+  };
+
   $('#athlete-form').submit(function(event) {
-    //event.preventDefault();
-    $.ajax({
-      url: $(this).attr('action'),
-      type: 'GET',
-      data: $(this).serialize(),
-      success: function(data) {
-        athletes.push($(this));
-      }
-    });
+    event.preventDefault();
+    addButton();
   });
 
-  for (var i = 0; i < athletes.length; i++) {
-    var athleteButton = $('<button>');
-
-    athleteButton.text(athletes[i]);
-
-    athleteButton.attr('class', 'athlete-button btn btn-success');
-
-    athleteButton.attr('data-athlete', athletes[i]);
-
-    athleteButton.attr('data-state', 'still');
-
-    $('#athlete-buttons').append(athleteButton);
-  }
-
-  $('.athlete-button').click(function() {
+  $('#athlete-buttons').click(function() {
     $('#athletes').empty();
 
-    // store name of athlete
-    var athlete = $(this).attr('data-athlete');
+    var target = event.target;
 
-    var queryURL =
-      'https://api.giphy.com/v1/gifs/search?q=' +
-      athlete +
-      '&api_key=8j8vTzPXrMnHfZlQqXZYoMSZYUGh7H3F&limit=10';
-    // https://api.giphy.com/v1/gifs/search?q=LeBron+James&api_key=643756783467863&limit=10
-    $.ajax({
-      url: queryURL,
-      method: 'GET'
-    }).then(function(response) {
-      var results = response.data;
+    var athlete = $(target).attr('data-athlete');
 
-      var imgURL = response.data.image_original_url;
+    // Couldn't target the specific class for click event so had to target the ID. But if anybody clicked in the white space then athlete became undefined, showing first 10 random results from API. Set this conditional to circumvent that bug until I find a better solution.
+    if (athlete !== undefined) {
+      var queryURL =
+        'https://api.giphy.com/v1/gifs/search?q=' +
+        athlete +
+        '&api_key=8j8vTzPXrMnHfZlQqXZYoMSZYUGh7H3F&limit=10';
 
-      // iterate through 10 times (limit amt) and create new div that has img for gif and paragraph for rating
-      for (var i = 0; i < results.length; i++) {
-        var gifDiv = $("<div class='item col-md-6'>");
+      $.ajax({
+        url: queryURL,
+        method: 'GET'
+      }).then(function(response) {
+        var results = response.data;
 
-        var rating = results[i].rating;
+        var imgURL = response.data.image_original_url;
 
-        var p = $('<p>').text('Rating: ' + rating);
+        // iterate through 10 times (limit amt) and create new div that has img for gif and paragraph for rating
+        for (var i = 0; i < results.length; i++) {
+          var gifDiv = $("<div class='item col-md-6'>");
 
-        var athleteImg = $('<img>');
+          var rating = results[i].rating;
 
-        athleteImg.attr('src', results[i].images.fixed_height.url);
+          var p = $('<p>').text('Rating: ' + rating);
 
-        gifDiv.prepend(p);
-        gifDiv.prepend(athleteImg);
+          var athleteImg = $('<img>');
 
-        $('#athletes').append(gifDiv);
-      }
-    });
+          athleteImg.attr('src', results[i].images.fixed_height.url);
+
+          gifDiv.prepend(p);
+          gifDiv.prepend(athleteImg);
+
+          $('#athletes').append(gifDiv);
+        }
+      });
+    }
   });
 });
-
-// Step Three: On click empty gifs
-
-// Step Four: On click populate 10 new gifs in still state
-
-// Step Five: On click animates gifs
-
-// Step Six: Have form add new button
