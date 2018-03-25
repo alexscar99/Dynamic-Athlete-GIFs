@@ -59,7 +59,9 @@ $(document).ready(function() {
 
     var athlete = $(target).attr('data-athlete');
 
-    /* When click event was on the added class, nothing happened for any of the buttons. But when I made the on click event for #athlete-buttons (id of entire div), clicking in the white space of the div would make the athlete variable undefined, so the AJAX call would still return 10 random gifs (query would be blank). Set this conditional to circumvent that bug until I find a better solution. */
+    console.log(athlete);
+
+    /* When click event was on the added class (.athlete-button), nothing happened for any of the buttons after any new ones were added. But when I made the on click event for #athlete-buttons (id of entire div), clicking in the white space of the div would make the athlete variable undefined, making the AJAX call return 10 random gifs (query would be blank). Set this conditional to circumvent that bug until I find a better solution. */
     if (athlete !== undefined) {
       $('#athletes').empty();
 
