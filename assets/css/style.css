@@ -1,3 +1,9 @@
+body {
+  background-image: url('../images/silver-abstract-wallpaper.jpg');
+  font-family: 'Roboto', sans-serif;
+  color: white;
+}
+
 .container-fluid {
   padding: 40px;
 }
@@ -9,16 +15,35 @@
 .item img {
   width: 425px;
   height: 285px;
+  border: 5px dashed white;
+  border-radius: 12px;
 }
 
 .item p {
   text-align: center;
   margin-top: 25px;
   margin-bottom: -50px;
+  font-size: 16px;
 }
 
-.btn-success {
-  padding: 6px;
+.btn-success,
+.btn-success:active,
+.btn-success:focus,
+.btn-success:active:focus {
+  background: rgb(153, 40, 40);
+  color: white;
+  padding: 8px;
   margin: 8px;
-  font-size: 16px;
+  font-size: 18px;
+  border: 3px solid white;
+}
+
+.btn-success:hover {
+  background: black;
+  color: white;
+  border: 3px solid white;
+}
+
+input {
+  color: black;
 }
