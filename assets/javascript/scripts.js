@@ -77,21 +77,43 @@ $(document).ready(function() {
         var imgURL = response.data.image_original_url;
 
         for (var i = 0; i < results.length; i++) {
-          var gifDiv = $("<div class='item col-md-6'>");
+          var gifDiv = $("<div class='item col-md-6' data-state='still'>");
 
           var rating = results[i].rating;
 
-          var p = $('<p>').text('Rating: ' + rating);
+          var ratingParagraph = $('<p>').text('Rating: ' + rating);
 
-          var athleteImg = $('<img>');
+          var athleteImg = $('<img class="gif">');
 
-          athleteImg.attr('src', results[i].images.fixed_height.url);
+          var stillImg = results[i].images.fixed_height_still.url;
 
-          gifDiv.prepend(p);
-          gifDiv.prepend(athleteImg);
+          athleteImg.attr('src', stillImg);
+
+          athleteImg.attr('data-animate', results[i].images.fixed_height.url);
+
+          athleteImg.attr('data-state', 'still');
+
+          athleteImg.attr('data-still', stillImg);
+
+          gifDiv.append(athleteImg);
+
+          gifDiv.append(ratingParagraph);
 
           $('#athletes').append(gifDiv);
         }
+
+        $('.gif').on('click', function() {
+          var state = $(this).attr('data-state');
+
+          if (state === 'still') {
+            $(this).attr('src', $(this).attr('data-animate'));
+            $(this).attr('data-state', 'animate');
+          }
+          if (state === 'animate') {
+            $(this).attr('src', $(this).attr('data-still'));
+            $(this).attr('data-state', 'still');
+          }
+        });
       });
     }
   });
