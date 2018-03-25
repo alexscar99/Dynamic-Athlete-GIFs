@@ -25,7 +25,6 @@ $(document).ready(function() {
   var makeButtons = function() {
     $('#athlete-buttons').empty();
 
-    // iterate through athletes array and create a button for each with text, classes, and attributes then append to #athlete-buttons
     for (var i = 0; i < athletes.length; i++) {
       var athleteButton = $('<button>');
 
@@ -43,7 +42,6 @@ $(document).ready(function() {
 
   makeButtons();
 
-  // grab input, push it into athletes array, and run function to populate buttons
   var addButton = function() {
     var newAthlete = $('#athlete-input').val();
     athletes.push(newAthlete);
@@ -51,19 +49,20 @@ $(document).ready(function() {
   };
 
   $('#athlete-form').submit(function(event) {
+    // don't refresh page on form submit
     event.preventDefault();
     addButton();
   });
 
   $('#athlete-buttons').click(function() {
-    $('#athletes').empty();
-
     var target = event.target;
 
     var athlete = $(target).attr('data-athlete');
 
-    // Couldn't target the specific class for click event so had to target the ID. But if anybody clicked in the white space then athlete became undefined, showing first 10 random results from API. Set this conditional to circumvent that bug until I find a better solution.
+    /* When click event was on the added class, nothing happened for any of the buttons. But when I made the on click event for #athlete-buttons (id of entire div), clicking in the white space of the div would make the athlete variable undefined, so the AJAX call would still return 10 random gifs (query would be blank). Set this conditional to circumvent that bug until I find a better solution. */
     if (athlete !== undefined) {
+      $('#athletes').empty();
+
       var queryURL =
         'https://api.giphy.com/v1/gifs/search?q=' +
         athlete +
@@ -77,7 +76,6 @@ $(document).ready(function() {
 
         var imgURL = response.data.image_original_url;
 
-        // iterate through 10 times (limit amt) and create new div that has img for gif and paragraph for rating
         for (var i = 0; i < results.length; i++) {
           var gifDiv = $("<div class='item col-md-6'>");
 
