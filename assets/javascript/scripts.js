@@ -38,31 +38,10 @@ $(document).ready(function() {
 
       $('#athlete-buttons').append(athleteButton);
     }
-  };
 
-  makeButtons();
+    $('.athlete-button').click(function() {
+      var athlete = $(this).attr('data-athlete');
 
-  var addButton = function() {
-    var newAthlete = $('#athlete-input').val();
-    athletes.push(newAthlete);
-    makeButtons();
-  };
-
-  $('#athlete-form').submit(function(event) {
-    // don't refresh page on form submit
-    event.preventDefault();
-    addButton();
-  });
-
-  $('#athlete-buttons').click(function() {
-    var target = event.target;
-
-    var athlete = $(target).attr('data-athlete');
-
-    console.log(athlete);
-
-    /* When click event was on the added class (.athlete-button), nothing happened for any of the buttons after any new ones were added. But when I made the on click event for #athlete-buttons (id of entire div), clicking in the white space of the div would make the athlete variable undefined, making the AJAX call return 10 random gifs (query would be blank). Set this conditional to circumvent that bug until I find a better solution. */
-    if (athlete !== undefined) {
       $('#athletes').empty();
 
       var queryURL =
@@ -117,6 +96,20 @@ $(document).ready(function() {
           }
         });
       });
-    }
+    });
+  };
+
+  makeButtons();
+
+  var addButton = function() {
+    var newAthlete = $('#athlete-input').val();
+    athletes.push(newAthlete);
+    makeButtons();
+  };
+
+  $('#athlete-form').submit(function(event) {
+    // don't refresh page on form submit
+    event.preventDefault();
+    addButton();
   });
 });
