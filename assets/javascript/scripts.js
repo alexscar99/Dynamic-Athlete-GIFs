@@ -43,7 +43,9 @@ $(document).ready(function() {
   makeButtons();
 
   var addButton = function() {
-    var newAthlete = $('#athlete-input').val();
+    var newAthlete = $('#athlete-input')
+      .val()
+      .trim();
     athletes.push(newAthlete);
     makeButtons();
   };
