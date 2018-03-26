@@ -6,9 +6,11 @@
 
 * When the page loads, there will be 20 buttons on the top of the screen, each with the name of a popular athlete.
 
-* If the user clicks any of the buttons, the page is populated with 10 GIFs of that athlete as images along with a rating for each GIF.
+* If the user clicks any of the buttons, the page is populated with 10 GIFs of that athlete from the Giphy API as images along with a rating for each GIF.
 
 * If the user clicks any of the images, the GIF starts. If they click again, the GIF stops playing and the original image is displayed.
+
+* When the user clicks another one of the athlete buttons, any GIFs or images currently displayed will be removed, and 10 GIFs corresponding to the most recent athlete clicked will populate the page.
 
 * There is a form on the side of the page where the user can add a new athlete. When the form is submitted, there will now be a new button with the name of that athlete appended to the default list of athletes.
 
