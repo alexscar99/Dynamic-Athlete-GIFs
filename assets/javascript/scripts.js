@@ -38,65 +38,6 @@ $(document).ready(function() {
 
       $('#athlete-buttons').append(athleteButton);
     }
-
-    $('.athlete-button').click(function() {
-      var athlete = $(this).attr('data-athlete');
-
-      $('#athletes').empty();
-
-      var queryURL =
-        'https://api.giphy.com/v1/gifs/search?q=' +
-        athlete +
-        '&api_key=8j8vTzPXrMnHfZlQqXZYoMSZYUGh7H3F&limit=10';
-
-      $.ajax({
-        url: queryURL,
-        method: 'GET'
-      }).then(function(response) {
-        var results = response.data;
-
-        var imgURL = response.data.image_original_url;
-
-        for (var i = 0; i < results.length; i++) {
-          var gifDiv = $("<div class='item col-md-6' data-state='still'>");
-
-          var rating = results[i].rating;
-
-          var ratingParagraph = $('<p>').text('Rating: ' + rating);
-
-          var athleteImg = $('<img class="gif">');
-
-          var stillImg = results[i].images.fixed_height_still.url;
-
-          athleteImg.attr('src', stillImg);
-
-          athleteImg.attr('data-animate', results[i].images.fixed_height.url);
-
-          athleteImg.attr('data-state', 'still');
-
-          athleteImg.attr('data-still', stillImg);
-
-          gifDiv.append(athleteImg);
-
-          gifDiv.append(ratingParagraph);
-
-          $('#athletes').append(gifDiv);
-        }
-
-        $('.gif').on('click', function() {
-          var state = $(this).attr('data-state');
-
-          if (state === 'still') {
-            $(this).attr('src', $(this).attr('data-animate'));
-            $(this).attr('data-state', 'animate');
-          }
-          if (state === 'animate') {
-            $(this).attr('src', $(this).attr('data-still'));
-            $(this).attr('data-state', 'still');
-          }
-        });
-      });
-    });
   };
 
   makeButtons();
@@ -108,8 +49,67 @@ $(document).ready(function() {
   };
 
   $('#athlete-form').submit(function(event) {
-    // don't refresh page on form submit
     event.preventDefault();
     addButton();
+    $('#athlete-input').val('');
+  });
+
+  $(document.body).on('click', '.athlete-button', function() {
+    var athlete = $(this).attr('data-athlete');
+
+    $('#athletes').empty();
+
+    var queryURL =
+      'https://api.giphy.com/v1/gifs/search?q=' +
+      athlete +
+      '&api_key=8j8vTzPXrMnHfZlQqXZYoMSZYUGh7H3F&limit=10';
+
+    $.ajax({
+      url: queryURL,
+      method: 'GET'
+    }).then(function(response) {
+      var results = response.data;
+
+      var imgURL = response.data.image_original_url;
+
+      for (var i = 0; i < results.length; i++) {
+        var gifDiv = $("<div class='item col-md-6' data-state='still'>");
+
+        var rating = results[i].rating;
+
+        var ratingParagraph = $('<p>').text('Rating: ' + rating);
+
+        var athleteImg = $('<img class="gif">');
+
+        var stillImg = results[i].images.fixed_height_still.url;
+
+        athleteImg.attr('src', stillImg);
+
+        athleteImg.attr('data-animate', results[i].images.fixed_height.url);
+
+        athleteImg.attr('data-state', 'still');
+
+        athleteImg.attr('data-still', stillImg);
+
+        gifDiv.append(athleteImg);
+
+        gifDiv.append(ratingParagraph);
+
+        $('#athletes').append(gifDiv);
+      }
+    });
+  });
+
+  $(document.body).on('click', '.gif', function() {
+    var state = $(this).attr('data-state');
+
+    if (state === 'still') {
+      $(this).attr('src', $(this).attr('data-animate'));
+      $(this).attr('data-state', 'animate');
+    }
+    if (state === 'animate') {
+      $(this).attr('src', $(this).attr('data-still'));
+      $(this).attr('data-state', 'still');
+    }
   });
 });
